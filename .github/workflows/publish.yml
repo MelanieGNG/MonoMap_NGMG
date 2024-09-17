@@ -1,0 +1,28 @@
+name: Docker build & Publish
+
+on: 
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Clone code
+        uses: actions/checkout@v2
+
+      - name: Login to Docker hub
+        run: docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}"
+
+      - name: Build Docker Image
+        run: docker build -t melaniegng/mono-cases:${{ github.sha }} .
+
+      - name: Tag Latest
+        run: docker tag melaniegng/mono-cases:${{ github.sha }} melaniegng/mono-cases:latest
+      
+      - name: Push Docker Image
+        run: |
+          docker push melaniegng/mono-cases:${{ github.sha }}
+          docker push melaniegng/mono-cases:latest
+      
