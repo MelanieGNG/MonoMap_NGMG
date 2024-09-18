@@ -16,6 +16,7 @@ app.use(AppRoutes.routes);
       mongoUrl: envs.MONGO_URL ?? ""
     }))();
 console.log(envs.MONGO_URL)
+
 app.get('/', (req,res) => {
     res.send("Hola Mundo");
 });
