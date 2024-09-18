@@ -56,8 +56,8 @@ export class MonoCasesController{
                 age,
                 creationDate
             });
-            const updatedIncident = await MonoModel.findById(id);
-            return res.json(updatedIncident);
+            const updateMonoCase = await MonoModel.findById(id);
+            return res.json(updateMonoCase);
         } catch (error) {
             console.error(error)
             return res.json({message:"Ocurrio un error al actualizar el caso"});
@@ -73,4 +73,21 @@ export class MonoCasesController{
             return res.json({message:"Ocurrio un error al eliminar el caso"});
         }
     }
+
+    public getMonoCasesFromLastWeek = async (req: Request, res: Response) => {
+        try {
+            const oneWeekAgo = new Date();
+            oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+    
+            const recentMonoCases = await MonoModel.find({
+                creationDate: { $gte: oneWeekAgo }
+            });
+    
+            return res.json(recentMonoCases);
+        } catch (error) {
+            console.error(error);
+            return res.json({ message: "Error al recuperar los casos de la última semana" });
+        }
+    }
+    
 }

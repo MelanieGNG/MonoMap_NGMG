@@ -11,6 +11,7 @@ export class MonoRoutes{
         router.post("/", controller.createMonoCase);
         router.put("/:id", controller.updateMonoCase);
         router.put("/:id", controller.deleteMonoCase);
+        router.get("/last-week", controller.getMonoCasesFromLastWeek);
 
 
         return router;
