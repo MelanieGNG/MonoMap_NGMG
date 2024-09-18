@@ -6,12 +6,17 @@ export class MonoRoutes{
         const router = Router();
         const controller = new MonoCasesController();
 
-        router.get("/", controller.getMonoCase);
+        // Primero las rutas específicas
+        router.get("/last-week", controller.getMonoCasesFromLastWeek);
+        
+        // Luego las rutas dinámicas
         router.get("/:id", controller.getMonoCaseById);
-        router.post("/", controller.createMonoCase);
         router.put("/:id", controller.updateMonoCase);
-        router.put("/:id", controller.deleteMonoCase);
-        // router.get("/last-week", controller.getMonoCasesFromLastWeek);
+        router.delete("/:id", controller.deleteMonoCase);
+
+        // Finalmente, las rutas generales
+        router.get("/", controller.getMonoCase);
+        router.post("/", controller.createMonoCase);
 
 
         return router;

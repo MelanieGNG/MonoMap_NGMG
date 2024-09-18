@@ -14,9 +14,9 @@ export class MonoCasesController{
         }
     };
 
-    public createMonoCase = async (req: Request, res: Response)=>{
-        try{
-            const {lat, lng, genre, age} = req.body;
+    public createMonoCase = async (req: Request, res: Response) => {
+        try {
+            const { lat, lng, genre, age } = req.body;
             const newMonoCase = await MonoModel.create({
                 lat,
                 lng,
@@ -26,11 +26,21 @@ export class MonoCasesController{
                 creationDate: new Date()
             });
             res.json(newMonoCase);
-        }
-        catch(error){   
-            res.json({message:"Error registrando el caso."});
+        } catch (error) {
+            console.error('Error al crear el caso:', error); // Imprime el error completo en la consola
+    
+            // Si error es un objeto con propiedades, intenta acceder a sus detalles
+            const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
+    
+            res.status(500).json({
+                message: "Error registrando el caso.",
+                error: errorMessage,
+                stack: error instanceof Error ? error.stack : undefined // Incluye el stack trace si está disponible
+            });
         }
     };
+    
+    
 
     public getMonoCaseById = async (req:Request, res:Response)=>{
         try {
@@ -71,20 +81,20 @@ export class MonoCasesController{
         }
     }
 
-    // public getMonoCasesFromLastWeek = async (req: Request, res: Response) => {
-    //     try {
-    //         const oneWeekAgo = new Date();
-    //         oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+    public getMonoCasesFromLastWeek = async (req: Request, res: Response) => {
+         try {
+            const oneWeekAgo = new Date();
+             oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
     
-    //         const recentMonoCases = await MonoModel.find({
-    //             creationDate: { $gte: oneWeekAgo }
-    //         });
+            const recentMonoCases = await MonoModel.find({
+                creationDate: { $gte: oneWeekAgo }
+            });
     
-    //         return res.json(recentMonoCases);
-    //     } catch (error) {
-    //         console.error(error);
-    //         return res.json({ message: "Error al recuperar los casos de la última semana" });
-    //     }
-    // }
+             return res.json(recentMonoCases);
+         } catch (error) {
+             console.error(error);
+             return res.json({ message: "Error al recuperar los casos de la última semana" });
+         }
+     }
     
 }

@@ -8,7 +8,7 @@ export const emailJob = () => {
 
     cron.schedule("*/10 * * * * *", async ()=>{
         try {
-            const monoCases = await MonoModel.find({ isEmailSent: false });
+            const monoCases = await MonoModel.find({ isSent: false });
             
             if (!monoCases.length){
                 console.log("No hay incidentes por enviar")
@@ -40,7 +40,7 @@ export const emailJob = () => {
                             genre: monoCase.genre,
                             age: monoCase.age,
                             creationDate: monoCase.creationDate,
-                            isEmailSent: true
+                            isSent: true
                         };
                         await MonoModel.findByIdAndUpdate(monoCase._id,updateCase);
                         console.log(`Caso actualizado para el Id: ${monoCase._id}`);

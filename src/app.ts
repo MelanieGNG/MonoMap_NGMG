@@ -27,16 +27,16 @@ app.listen(envs.PORT, () => {
 
 });
 
-app.post("/", async(req, res) =>{
-    const {lat, lng, genre, age, creationDate} = req.body;
-    const newMonoCase = await MonoModel.create({
-        lat: lat,
-        lng: lng,
-        genre: genre,
-        age: age,
-        creationDate: creationDate
-    });
+// app.post("/", async(req, res) =>{
+//     const {lat, lng, genre, age, creationDate} = req.body;
+//     const newMonoCase = await MonoModel.create({
+//         lat: lat,
+//         lng: lng,
+//         genre: genre,
+//         age: age,
+//         creationDate: creationDate
+//     });
 
-    res.send("Caso Registrado");
+//     res.send("Caso Registrado");
 
-});
+// });
