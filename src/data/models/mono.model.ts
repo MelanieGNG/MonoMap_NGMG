@@ -9,22 +9,23 @@ const monoSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    genre:{
-        type: String,
-        default: false
-    },
-    age:{
-        type: Number,
-        default: false
-    },
-    creationDate:{
-        type: Date,
-        default: false
-    },
     isSent:{
         type: Boolean,
         default: false
-    }
+    },
+    genre:{
+        type: String,
+        required: true
+    },
+    age:{
+        type: Number,
+        required: true
+    },
+    creationDate:{
+        type: Date,
+        required: true
+    },
+  
 });
 
 

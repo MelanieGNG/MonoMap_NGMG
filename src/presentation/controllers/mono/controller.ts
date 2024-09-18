@@ -12,28 +12,25 @@ export class MonoCasesController{
         catch(error){
             return res.json([]);
         }
-    }
+    };
 
     public createMonoCase = async (req: Request, res: Response)=>{
         try{
-            const {lat, lng, genre, age, creationDate} = req.body;
+            const {lat, lng, genre, age} = req.body;
             const newMonoCase = await MonoModel.create({
                 lat,
                 lng,
+                isSent: false,
                 genre,
                 age,
-                creationDate
+                creationDate: new Date()
             });
-
             res.json(newMonoCase);
         }
-        catch(error){
-            console.error(error)
-
-            
+        catch(error){   
             res.json({message:"Error registrando el caso."});
         }
-    }
+    };
 
     public getMonoCaseById = async (req:Request, res:Response)=>{
         try {
@@ -74,20 +71,20 @@ export class MonoCasesController{
         }
     }
 
-    public getMonoCasesFromLastWeek = async (req: Request, res: Response) => {
-        try {
-            const oneWeekAgo = new Date();
-            oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+    // public getMonoCasesFromLastWeek = async (req: Request, res: Response) => {
+    //     try {
+    //         const oneWeekAgo = new Date();
+    //         oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
     
-            const recentMonoCases = await MonoModel.find({
-                creationDate: { $gte: oneWeekAgo }
-            });
+    //         const recentMonoCases = await MonoModel.find({
+    //             creationDate: { $gte: oneWeekAgo }
+    //         });
     
-            return res.json(recentMonoCases);
-        } catch (error) {
-            console.error(error);
-            return res.json({ message: "Error al recuperar los casos de la última semana" });
-        }
-    }
+    //         return res.json(recentMonoCases);
+    //     } catch (error) {
+    //         console.error(error);
+    //         return res.json({ message: "Error al recuperar los casos de la última semana" });
+    //     }
+    // }
     
 }

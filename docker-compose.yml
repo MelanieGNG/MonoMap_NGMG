@@ -4,7 +4,7 @@ services:
     image: melaniegng/mono-cases:latest 
     container_name: MonoApp
     ports:
-      - "3000:3000"
+      - "3001:3000"
     environment:
       MONGO_URL: ${MONGO_URL_DOCKER}
       PORT: ${PORT}
